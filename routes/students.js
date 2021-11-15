@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const debug = require('debug')('monprojetdemo:api:student');
-const connection = require('../db_connect');
-
-
-const studentList = [];
+const connection = require('../db_connect').connection;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -52,6 +49,22 @@ router.get('/:id', (req, res) => {
         } else {
           res.status(404).send("Student not found");
         }
+      }
+    }
+  );
+});
+
+router.delete('/:id', (req, res) => {
+  debug("Delete student");
+  const studentId = req.params.id;
+  connection.query(
+    'DELETE FROM `students` WHERE id = ?',
+    [ studentId ],
+    (err, results, fields) => {
+      if (err) {
+        debug(err);
+      } else {
+        res.status(204).send();
       }
     }
   );
