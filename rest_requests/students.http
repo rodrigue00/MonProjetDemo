@@ -16,4 +16,8 @@ GET http://localhost:3000/students/2
 
 ###
 
+GET http://localhost:3000/students/2/classes
+
+###
+
 DELETE http://localhost:3000/students/2
