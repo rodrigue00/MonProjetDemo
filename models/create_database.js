@@ -1,17 +1,14 @@
-const debug = require('debug')('monprojetdemo:create_database');
-const mysql = require('mysql2');
+require('dotenv').config();
+const debug = require("debug")("monprojetdemo:schema");
+const mysql = require("mysql2");
 
 // create the connection to database
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'mysql'
+  host: process.env.DB_HOSTNAME,
+  user: process.env.DB_USERNAME,
+  database: "mysql",
 });
-connection.query(
-    'create database studentdb',
-    function(err, results, fields) {
-      debug(err);
-      debug(results); // results contains rows returned by server
-      connection.close();
-    }
-);
+
+connection.query("create database studentdb", function (err, results, fields) {
+  connection.close();
+});
